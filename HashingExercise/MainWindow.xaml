@@ -1,0 +1,81 @@
+﻿<Window x:Class="HashingExercise.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HashingExercise"
+        xmlns:HE="clr-namespace:HashingExercise"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <HE:HashingViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="265*"/>
+            <ColumnDefinition Width="175*"/>
+            <ColumnDefinition Width="354*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="1">
+            <Label Content="HMAC" HorizontalAlignment="Center" VerticalAlignment="Top"></Label>
+            <ComboBox Name="cmbHashType" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="120" ItemsSource="{Binding SelectableHashTypes}" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding SelectedType, Mode=TwoWay}" >
+            </ComboBox>
+        </StackPanel>
+
+        <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="3">
+            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Width="130" Content="Compute MAC" Command="{Binding ComputeMACCommand}"></Button>
+        </DockPanel>
+
+        <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Grid.Row="5">
+            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Width="130" Content="Verify MAC" Command="{Binding VerifyMACCommand}"></Button>
+        </DockPanel>
+
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2" Grid.Row="1">
+            <Label HorizontalAlignment="Left" VerticalAlignment="Center">Key</Label>
+            <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Label HorizontalAlignment="Left" VerticalAlignment="Center">ASCII:</Label>
+                <TextBox Name="TextBox_Key" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Background="LightGray" Text="{Binding Key, Mode=TwoWay}"></TextBox>
+            </DockPanel>
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2" Grid.Row="3">
+            <Label HorizontalAlignment="Left" VerticalAlignment="Center">Plain Text</Label>
+            <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Label HorizontalAlignment="Left" VerticalAlignment="Center">ASCII:</Label>
+                <TextBox Name="TextBox_PlainText" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Background="LightGray" Text="{Binding PlainText, Mode=TwoWay}"></TextBox>
+            </DockPanel>
+        </StackPanel>
+
+        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2" Grid.Row="5">
+            <Label HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="MAC"></Label>
+        </DockPanel>
+
+        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="5">
+            <Label x:Name="_successLabel" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="{Binding HMACSuccess}" Opacity="{Binding DumbSolution}"></Label>
+        </DockPanel>
+
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2" Grid.Row="6">            
+            <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Label HorizontalAlignment="Left" VerticalAlignment="Center">ASCII: </Label>
+                <TextBox Name="TextBox_VerifiedASCII" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Background="LightGray" Text="{Binding VerifiedASCII, Mode=OneWay}"></TextBox>
+            </DockPanel>
+            <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Label HorizontalAlignment="Left" VerticalAlignment="Center">HEX:</Label>
+                <TextBox Name="TextBox_VerifiedHEX" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Background="LightGray" Text="{Binding VerifiedHEX, Mode=OneWay}"></TextBox>
+            </DockPanel>
+        </StackPanel>
+
+    </Grid>
+</Window>
